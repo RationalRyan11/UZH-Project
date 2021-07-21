@@ -49,10 +49,15 @@ contract covidregister {
     return id;
   }
 
-//Add a ticket booking 
+//Add a ticket booking only if person has Covid certificate
   function addticketbooking(string calldata _name, string calldata _surname, string calldata _venue, string calldata _date) external returns(uint){
 
-      uint id = ticketbookings.push(ticketbooking(_name, _surname, _venue, _date, msg.sender)) - 1;
+    if (covidcertificates.indexOf(_name)!=-1){
+      if(covidcertificates.indexOf(_surname)!=-1){
+        uint id = ticketbookings.push(ticketbooking(_name, _surname, _venue, _date, msg.sender)) - 1;
+
+      }
+    }
       return id;
 
   }
